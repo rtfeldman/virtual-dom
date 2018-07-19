@@ -297,7 +297,7 @@ function _VirtualDom_noJavaScriptUri__PROD(value)
 function _VirtualDom_noJavaScriptUri__DEBUG(value)
 {
 	return /^javascript:/i.test(value.replace(/\s/g,''))
-		? 'javascript:alert("This is an XSS vector. Please use ports or web components instead.")'
+		? 'javascript:alert("This is an XSS vector. Please use ports or custom elements instead.")'
 		: value;
 }
 
@@ -309,7 +309,7 @@ function _VirtualDom_noJavaScriptOrHtmlUri__PROD(value)
 function _VirtualDom_noJavaScriptOrHtmlUri__DEBUG(value)
 {
 	return /^\s*(javascript:|data:text\/html)/i.test(value)
-		? 'javascript:alert("This is an XSS vector. Please use ports or web components instead.")'
+		? 'javascript:alert("This is an XSS vector. Please use ports or custom elements instead.")'
 		: value;
 }
 
