@@ -291,24 +291,30 @@ function _VirtualDom_noInnerHtmlOrFormAction(key)
 
 function _VirtualDom_noJavaScriptUri__PROD(value)
 {
-	return /^javascript:/i.test(value.replace(/\s/g,'')) ? '' : value;
+	return /^\s*j\t*a\t*v\t*a\t*s\t*c\t*r\t*i\t*p\t*t\s*:/i.test(value.replace(/\s/g,'')) ? '' : value;
 }
 
 function _VirtualDom_noJavaScriptUri__DEBUG(value)
 {
-	return /^javascript:/i.test(value.replace(/\s/g,''))
+	return /^\s*j\t*a\t*v\t*a\t*s\t*c\t*r\t*i\t*p\t*t\s*:/i.test(value.replace(/\s/g,''))
 		? 'javascript:alert("This is an XSS vector. Please use ports or custom elements instead.")'
 		: value;
 }
 
+// The following patterns must be disallowed, including if they have
+// leading whitespace or tab characters interspersed.
+//
+// javascript:
+// data: text/html
+//
 function _VirtualDom_noJavaScriptOrHtmlUri__PROD(value)
 {
-	return /^\s*(javascript:|data:text\/html)/i.test(value) ? '' : value;
+	return /^\s*(j\t*a\t*v\t*a\t*s\t*c\t*r\t*i\t*p\t*t\s*:|d\t*a\t*t\t*a\s*:\s*t\t*e\t*x\t*t\s*\/\s*h\t*t\t*m\t*l)/i.test(value) ? '' : value;
 }
 
 function _VirtualDom_noJavaScriptOrHtmlUri__DEBUG(value)
 {
-	return /^\s*(javascript:|data:text\/html)/i.test(value)
+	return /^\s*(j\t*a\t*v\t*a\t*s\t*c\t*r\t*i\t*p\t*t\s*:|d\t*a\t*t\t*a\s*:\s*t\t*e\t*x\t*t\s*\/\s*h\t*t\t*m\t*l)/i.test(value)
 		? 'javascript:alert("This is an XSS vector. Please use ports or custom elements instead.")'
 		: value;
 }
